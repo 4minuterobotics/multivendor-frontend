@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LoginPage, SignupPage } from './Routes.js';
+import { LoginPage, SignupPage, ActivationPage } from './Routes.js';
 import './App.css';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import { loadUser } from './redux/actions/user';
+import Store from './redux/store';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
+	useEffect(() => {
+		Store.dispatch(loadUser());
+		// Store.dispatch(loadSeller());
+		// Store.dispatch(getAllProducts());
+		// Store.dispatch(getAllEvents());
+		// getStripeApikey();
+	}, []);
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -16,6 +26,10 @@ const App = () => {
 				<Route
 					path='/sign-up'
 					element={<SignupPage />}
+				/>
+				<Route
+					path='/activation'
+					element={<ActivationPage />}
 				/>
 			</Routes>
 			<ToastContainer
